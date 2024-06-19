@@ -5,5 +5,6 @@ plugins {
     id("de.fayard.refreshVersions") version "0.60.5"
 }
 include(
-    "exercises:simple"
+    "exercises:simple",
+    "exercises:inventory",
 )
