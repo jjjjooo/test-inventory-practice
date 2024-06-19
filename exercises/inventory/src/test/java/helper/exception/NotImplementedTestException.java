@@ -1,4 +1,4 @@
-package com.exam.inventoryapp.test.exception;
+package helper.exception;
 
 public class NotImplementedTestException extends RuntimeException {
 }

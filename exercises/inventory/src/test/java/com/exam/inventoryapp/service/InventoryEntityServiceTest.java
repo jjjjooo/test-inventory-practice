@@ -7,7 +7,6 @@ import com.exam.inventoryapp.inventory.service.exception.InvalidDecreaseQuantity
 import com.exam.inventoryapp.inventory.service.exception.InvalidStockException;
 import com.exam.inventoryapp.inventory.service.exception.ItemNotFoundException;
 import com.exam.inventoryapp.repository.InventoryRepositoryFaker;
-import com.exam.inventoryapp.test.exception.NotImplementedTestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
