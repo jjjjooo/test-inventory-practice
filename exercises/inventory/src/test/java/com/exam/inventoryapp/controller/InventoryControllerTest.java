@@ -12,6 +12,7 @@ import com.exam.inventoryapp.inventory.service.exception.ItemNotFoundException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import helper.fixture.InventoryFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -71,7 +72,7 @@ public class InventoryControllerTest {
         @Test
         void test1000() throws Exception {
             //given
-            final Inventory inventory = new Inventory(itemId, stock);
+            final Inventory inventory = InventoryFixture.sampleInventory(itemId, null);
             given(inventoryService.findByItemId(itemId))
                     .willReturn(inventory);
 
@@ -159,8 +160,7 @@ public class InventoryControllerTest {
         @Test
         void test1000() throws Exception {
             //given
-            final Long stock = 200L;
-            Inventory inventory = new Inventory(itemId, stock);
+            final Inventory inventory = InventoryFixture.sampleInventory(itemId, null);
             given(inventoryService.decreaseByItemId(itemId, quantity))
                     .willReturn(inventory);
 
@@ -230,7 +230,7 @@ public class InventoryControllerTest {
         @Test
         void test1000() throws Exception {
             //given
-            Inventory inventory = new Inventory(itemId, stock);
+            final Inventory inventory = InventoryFixture.sampleInventory(itemId, null);
             given(inventoryService.updateStock(itemId, stock))
                     .willReturn(inventory);
 
