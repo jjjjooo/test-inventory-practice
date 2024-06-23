@@ -5,14 +5,10 @@ import com.exam.inventoryapp.inventory.service.InventoryService;
 import com.exam.inventoryapp.inventory.service.domain.Inventory;
 import com.exam.inventoryapp.inventory.service.exception.InsufficientStockException;
 import com.exam.inventoryapp.inventory.service.exception.InvalidDecreaseQuantityException;
+import com.exam.inventoryapp.inventory.service.exception.InvalidStockException;
 import com.exam.inventoryapp.inventory.service.exception.ItemNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1/inventory")
 @RestController
@@ -50,6 +46,26 @@ public class InventoryController {
             throw new CommonInventoryHttpException(ErrorCodes.INSUFFICIENT_STOCK, HttpStatus.BAD_REQUEST);
         } catch (InvalidDecreaseQuantityException e) {
             throw new CommonInventoryHttpException(ErrorCodes.INVALID_DECREASE_QUANTITY, HttpStatus.BAD_REQUEST);
+        }
+
+        return ApiResponse.just(
+                InventoryResponse.fromDomain(inventory)
+        );
+    }
+
+    @PatchMapping("/{itemId}/stock")
+     ApiResponse<InventoryResponse> updateStock(
+            @PathVariable String itemId,
+            @RequestBody UpdateStockRequest request
+    ) {
+        Inventory inventory;
+
+        try {
+            inventory = inventoryService.updateStock(itemId, request.stock());
+        } catch (ItemNotFoundException e) {
+            throw new CommonInventoryHttpException(ErrorCodes.ITEM_NOT_FOUND, HttpStatus.NOT_FOUND);
+        } catch (InvalidStockException e) {
+            throw new CommonInventoryHttpException(ErrorCodes.INVALID_STOCK, HttpStatus.BAD_REQUEST);
         }
 
         return ApiResponse.just(
