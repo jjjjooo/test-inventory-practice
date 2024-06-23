@@ -7,7 +7,6 @@ import com.exam.inventoryapp.inventory.service.exception.InvalidDecreaseQuantity
 import com.exam.inventoryapp.inventory.service.exception.InvalidStockException;
 import com.exam.inventoryapp.inventory.service.exception.ItemNotFoundException;
 import com.exam.inventoryapp.repository.InventoryRepositoryFaker;
-import com.exam.inventoryapp.test.exception.NotImplementedTestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -16,20 +15,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class InventoryEntityServiceTest {
+public class InventoryServiceTest {
 
     @InjectMocks
     InventoryService sut;
 
     @Spy
     InventoryRepositoryFaker inventoryRepository;
-
 
     @Nested
     class FindByItemId {
@@ -90,7 +90,7 @@ public class InventoryEntityServiceTest {
 
             // when
             assertThrows(InvalidDecreaseQuantityException.class, () -> {
-                sut.decreaseByItem(existingItemId, quantity);
+                sut.decreaseByItemId(existingItemId, quantity);
             });
 
         }
@@ -104,7 +104,7 @@ public class InventoryEntityServiceTest {
 
             //when
             assertThrows(ItemNotFoundException.class, () -> {
-                sut.decreaseByItem(nonExistingItemId, quantity);
+                sut.decreaseByItemId(nonExistingItemId, quantity);
             });
         }
 
@@ -116,7 +116,7 @@ public class InventoryEntityServiceTest {
 
             //when
             assertThrows(InsufficientStockException.class, () -> {
-                sut.decreaseByItem(existingItemId, overQuantity);
+                sut.decreaseByItemId(existingItemId, overQuantity);
             });
 
         }
@@ -131,7 +131,7 @@ public class InventoryEntityServiceTest {
 
             //when
             assertThrows(ItemNotFoundException.class, () -> {
-                sut.decreaseByItem(existingItemId, quantity);
+                sut.decreaseByItemId(existingItemId, quantity);
             });
 
             verify(inventoryRepository).decreaseStock(existingItemId, quantity);
@@ -144,7 +144,7 @@ public class InventoryEntityServiceTest {
             final Long quantity = 10L;
 
             //when
-            final Inventory result = sut.decreaseByItem(existingItemId, quantity);
+            final Inventory result = sut.decreaseByItemId(existingItemId, quantity);
 
             //then
             assertNotNull(result);
