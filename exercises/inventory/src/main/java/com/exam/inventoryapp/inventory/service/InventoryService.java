@@ -24,7 +24,7 @@ public class InventoryService {
 
     }
 
-    public Inventory decreaseByItem(String itemId, Long quantity) {
+    public Inventory decreaseByItemId(String itemId, Long quantity) {
         if (quantity < 0) throw new InvalidDecreaseQuantityException();
 
         InventoryEntity inventoryEntity = inventoryRepository.findByItemId(itemId)

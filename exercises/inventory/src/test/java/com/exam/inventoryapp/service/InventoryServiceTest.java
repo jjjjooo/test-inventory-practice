@@ -90,7 +90,7 @@ public class InventoryServiceTest {
 
             // when
             assertThrows(InvalidDecreaseQuantityException.class, () -> {
-                sut.decreaseByItem(existingItemId, quantity);
+                sut.decreaseByItemId(existingItemId, quantity);
             });
 
         }
@@ -104,7 +104,7 @@ public class InventoryServiceTest {
 
             //when
             assertThrows(ItemNotFoundException.class, () -> {
-                sut.decreaseByItem(nonExistingItemId, quantity);
+                sut.decreaseByItemId(nonExistingItemId, quantity);
             });
         }
 
@@ -116,7 +116,7 @@ public class InventoryServiceTest {
 
             //when
             assertThrows(InsufficientStockException.class, () -> {
-                sut.decreaseByItem(existingItemId, overQuantity);
+                sut.decreaseByItemId(existingItemId, overQuantity);
             });
 
         }
@@ -131,7 +131,7 @@ public class InventoryServiceTest {
 
             //when
             assertThrows(ItemNotFoundException.class, () -> {
-                sut.decreaseByItem(existingItemId, quantity);
+                sut.decreaseByItemId(existingItemId, quantity);
             });
 
             verify(inventoryRepository).decreaseStock(existingItemId, quantity);
@@ -144,7 +144,7 @@ public class InventoryServiceTest {
             final Long quantity = 10L;
 
             //when
-            final Inventory result = sut.decreaseByItem(existingItemId, quantity);
+            final Inventory result = sut.decreaseByItemId(existingItemId, quantity);
 
             //then
             assertNotNull(result);
