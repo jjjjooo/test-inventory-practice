@@ -15,20 +15,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class InventoryEntityServiceTest {
+public class InventoryServiceTest {
 
     @InjectMocks
     InventoryService sut;
 
     @Spy
     InventoryRepositoryFaker inventoryRepository;
-
 
     @Nested
     class FindByItemId {

@@ -6,8 +6,9 @@ import com.exam.inventoryapp.inventory.service.exception.InsufficientStockExcept
 import com.exam.inventoryapp.inventory.service.exception.InvalidDecreaseQuantityException;
 import com.exam.inventoryapp.inventory.service.exception.InvalidStockException;
 import com.exam.inventoryapp.inventory.service.exception.ItemNotFoundException;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class InventoryService {
 
     private final InventoryRepository inventoryRepository;
